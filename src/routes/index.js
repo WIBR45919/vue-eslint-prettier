@@ -5,26 +5,24 @@ import { mustBeAuthenticated } from "../store/authentified";
 
 const routes = [
   {
-    path: '/',
+    path: "/",
     component: EntryPage,
     beforeEnter: () => {
       if (!mustBeAuthenticated().getIsAuthenticated()) {
-        return true
+        return true;
+      } else {
+        return "/home";
       }
-      else {
-        return "/home"
-      }
-    }
+    },
   },
   {
-    path: '/home',
+    path: "/home",
     component: HomePage,
     beforeEnter: () => {
       if (mustBeAuthenticated().getIsAuthenticated()) {
-        return true
-      }
-      else {
-        return "/"
+        return true;
+      } else {
+        return "/";
       }
     },
   },
@@ -33,6 +31,6 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
-})
+});
 
 export default router;

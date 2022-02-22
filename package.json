@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "keycloak-js": "^17.0.0",
+    "keycloak-verify": "^0.4.0",
     "vue": "^3.2.25",
     "vue-router": "^4.0.12"
   },

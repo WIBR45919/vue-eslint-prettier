@@ -1,16 +1,13 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from "vue";
+import App from "./App.vue";
 import router from "./routes";
 import Keycloak from "keycloak-js";
 
-createApp(App)
-  .use(router)
-  .mount('#app');
-
+createApp(App).use(router).mount("#app");
 
 //   const initOptions = {
 //     url: 'http://localhost:8080/',
-//     realm: `demo`,
+//     realm: "demo",
 //     clientId: 'vue-demo-app',
 //     onLoad: 'login-required'
 //   }
@@ -21,11 +18,10 @@ createApp(App)
 //      if (!auth){
 //        window.location.reload();
 //      }else {
-//        localStorage.setItem("token",keycloak.token);
-//        localStorage.setItem("refresh-token",keycloak.refreshToken);
+//        localStorage.setItem("token", keycloak.token);
+//        localStorage.setItem("refresh-token", keycloak.refreshToken);
 //        createApp(App)
 //          .use(router)
 //          .mount('#app');
 //      }
 //    })
-

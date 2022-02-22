@@ -5,10 +5,10 @@
         <div class="container">
           <label for="tenant"><b>Tenant</b></label>
           <input
-            type="text"
             id="tenant"
             v-model.lazy="tenant"
             placeholder="Enter your tenant"
+            type="text"
           >
           <button @click.prevent="initPages">Submit</button>
         </div>
@@ -25,42 +25,39 @@ import { useRouter } from "vue-router";
 
 export default {
   name: "EntryPage",
-  setup: ()=>{
+  setup: () => {
     const tenant = ref("");
     const router = useRouter();
 
     const initPages = () => {
 
       const initOptions = {
-        url: 'http://localhost:8080/',
+        url: "http://localhost:8080/",
         realm: `${tenant.value}`,
-        clientId: 'vue-demo-app',
-        onLoad: 'login-required'
+        clientId: "vue-demo-app",
+        onLoad: "login-required"
       };
 
       const keycloak = Keycloak(initOptions);
 
-      keycloak.init({ onLoad: initOptions.onLoad })
-        .then((auth)=>{
-          if (!auth){
-              window.location.replace("https://google.com");
-          }else {
-            localStorage.setItem("token", keycloak.token);
-            localStorage.setItem("refresh-token", keycloak.refreshToken);
-            router.push("/home");
-          }
-        })
-        .catch(e =>{
+      keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
+        if (auth) {
+          localStorage.setItem("token", keycloak.token);
+          localStorage.setItem("refresh-token", keycloak.refreshToken);
+          router.push("/home");
+        }
+      })
+        .catch(e => {
           console.log(e);
         });
-    }
+    };
 
     return {
       initPages,
       tenant
-    }
+    };
   }
-}
+};
 </script>
 
 <style scoped>
