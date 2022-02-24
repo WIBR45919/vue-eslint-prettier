@@ -35,9 +35,9 @@ export default {
 
     return {
       tenant,
-      initPages
+      initPages,
     };
-  }
+  },
 };
 </script>
 
