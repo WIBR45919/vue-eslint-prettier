@@ -13,6 +13,7 @@ const options = {
   export default {
     install: (app)=>{
       app.$keycloak = keycloak
+      app.provide("keycloakPlugin", app.$keycloak);
     }
   }
 

@@ -16,13 +16,24 @@ router.beforeEach((to, from, next) => {
 
     const basePath = window.location.toString();
     if (!authentication || !authentication.authenticated) {
-      authentication.init({ onLoad: "login-required", redirectUri: basePath.slice(0, -1) + to.path }).then((auth)=>{
-        if (auth){
-          localStorage.setItem("token", authentication.token);
-          localStorage.setItem("refresh-token", authentication.refreshToken);
-          next();
-        }
-      })
+      if (localStorage.getItem("tenant")) {
+        authentication
+          .init({
+            onLoad: "login-required",
+            redirectUri: basePath.slice(0, -1) + to.path,
+          })
+          .then((auth) => {
+            if (auth) {
+              localStorage.setItem("token", authentication.token);
+              localStorage.setItem("refresh-token", authentication.refreshToken);
+              next();
+            }
+          })
+      }else {
+        router.push("/entry");
+      }
+    } else {
+      next();
     }
   } else {
     next()
