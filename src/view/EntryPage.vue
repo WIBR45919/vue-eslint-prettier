@@ -20,7 +20,6 @@
 <script lang="js">
 
 import { ref } from "vue";
-import Keycloak from "keycloak-js";
 import { useRouter } from "vue-router";
 
 export default {
@@ -30,31 +29,13 @@ export default {
     const router = useRouter();
 
     const initPages = () => {
-
-      const initOptions = {
-        url: "http://localhost:8080/",
-        realm: `${tenant.value}`,
-        clientId: "vue-demo-app",
-        onLoad: "login-required"
-      };
-
-      const keycloak = Keycloak(initOptions);
-
-      keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
-        if (auth) {
-          localStorage.setItem("token", keycloak.token);
-          localStorage.setItem("refresh-token", keycloak.refreshToken);
-          router.push("/home");
-        }
-      })
-        .catch(e => {
-          console.log(e);
-        });
+      localStorage.setItem("tenant", tenant.value);
+      router.push("/home");
     };
 
     return {
-      initPages,
-      tenant
+      tenant,
+      initPages
     };
   }
 };

@@ -1,27 +1,30 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./routes";
-import Keycloak from "keycloak-js";
+import  plugins  from "./plugins/keycloak-plugin"
 
-createApp(App).use(router).mount("#app");
+const app = createApp(App);
 
-//   const initOptions = {
-//     url: 'http://localhost:8080/',
-//     realm: "demo",
-//     clientId: 'vue-demo-app',
-//     onLoad: 'login-required'
-//   }
-//
-//   const keycloak = Keycloak(initOptions);
-//
-//    keycloak.init({ onLoad: initOptions.onLoad }).then((auth)=>{
-//      if (!auth){
-//        window.location.reload();
-//      }else {
-//        localStorage.setItem("token", keycloak.token);
-//        localStorage.setItem("refresh-token", keycloak.refreshToken);
-//        createApp(App)
-//          .use(router)
-//          .mount('#app');
-//      }
-//    })
+  app.use(router)
+  .use(plugins)
+  .mount("#app");
+
+router.beforeEach((to, from, next) => {
+  const authentication = app.$keycloak;
+
+  if (to.meta.isAuthenticated) {
+
+    const basePath = window.location.toString();
+    if (!authentication || !authentication.authenticated) {
+      authentication.init({ onLoad: "login-required", redirectUri: basePath.slice(0, -1) + to.path }).then((auth)=>{
+        if (auth){
+          localStorage.setItem("token", authentication.token);
+          localStorage.setItem("refresh-token", authentication.refreshToken);
+          next();
+        }
+      })
+    }
+  } else {
+    next()
+  }
+});

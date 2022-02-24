@@ -2,29 +2,22 @@ import { createRouter, createWebHistory } from "vue-router";
 import EntryPage from "../view/EntryPage.vue";
 import HomePage from "../view/HomePage.vue";
 import { mustBeAuthenticated } from "../store/authentified";
+import { inject } from "vue";
 
 const routes = [
   {
     path: "/",
     component: EntryPage,
-    beforeEnter: () => {
-      if (!mustBeAuthenticated().getIsAuthenticated()) {
-        return true;
-      } else {
-        return "/home";
-      }
-    },
+    meta: {
+      isAuthenticated: false
+    }
   },
   {
     path: "/home",
     component: HomePage,
-    beforeEnter: () => {
-      if (mustBeAuthenticated().getIsAuthenticated()) {
-        return true;
-      } else {
-        return "/";
-      }
-    },
+    meta: {
+      isAuthenticated: true
+    }
   },
 ];
 
@@ -32,5 +25,6 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
 
 export default router;

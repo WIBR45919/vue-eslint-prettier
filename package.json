@@ -18,13 +18,13 @@
   },
   "dependencies": {
     "keycloak-js": "^17.0.0",
-    "keycloak-verify": "^0.4.0",
     "vue": "^3.2.25",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.2.0",
     "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.4.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-node": "^11.1.0",
