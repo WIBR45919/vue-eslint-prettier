@@ -30,7 +30,7 @@ router.beforeEach((to, from, next) => {
             }
           })
       }else {
-        router.push("/entry");
+        router.push({ name: "entry-page" });
       }
     } else {
       next();
