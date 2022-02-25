@@ -41,4 +41,3 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
-// TODO: adjust the problem: refresh about page leads to an url error an go to the not found component
