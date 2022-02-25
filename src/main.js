@@ -1,42 +1,44 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./routes";
-import  plugins  from "./plugins/keycloak-plugin"
+import plugins from "./plugins/keycloak-plugin";
 
 const app = createApp(App);
 
-  app.use(router)
-  .use(plugins)
-  .mount("#app");
+app.use(router).use(plugins).mount("#app");
+
+const basePath = import.meta.env.VITE_BASE_URL;
 
 router.beforeEach((to, from, next) => {
   const authentication = app.$keycloak;
 
   if (to.meta.isAuthenticated) {
-
-    const basePath = window.location.toString();
     if (!authentication || !authentication.authenticated) {
+
       if (localStorage.getItem("tenant")) {
         authentication
           .init({
             onLoad: "login-required",
-            redirectUri: basePath.slice(0, -1) + to.path,
+            redirectUri: basePath + to.path,
           })
           .then((auth) => {
             if (auth) {
               localStorage.setItem("token", authentication.token);
-              localStorage.setItem("refresh-token", authentication.refreshToken);
+              localStorage.setItem(
+                "refresh-token",
+                authentication.refreshToken
+              );
               next();
             }
-          })
-      }else {
-        router.push({ name: "entry-page" });
+          });
+      } else {
+        router.push({ name: "entry-page",});
       }
     } else {
       next();
     }
   } else {
-    next()
+    next();
   }
 });
-//TODO: adjust the problem: refresh about page leads to an url error an go to the not found component
+// TODO: adjust the problem: refresh about page leads to an url error an go to the not found component
