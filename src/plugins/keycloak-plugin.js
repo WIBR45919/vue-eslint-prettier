@@ -2,10 +2,12 @@ import Keycloak from "keycloak-js";
 
 
 const options = {
-  url: "http://localhost:8080/",
-  realm: `${ localStorage.getItem("tenant") || 'demo' }`,
-  clientId: "vue-demo-app",
+  url: "http://localhost:8080/auth",
+  realm: `${ localStorage.getItem("tenant") || 'student' }`,
+  clientId: "viwanda-web",
+  "enable-pkce": true,
   onLoad: "login-required",
+  scope: "openId",
 };
 
 

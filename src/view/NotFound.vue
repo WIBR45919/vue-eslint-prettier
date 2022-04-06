@@ -8,7 +8,7 @@
 
 <script lang="js">
 export default {
-  name: "NotFound"
+  name: "NotFound",
 };
 </script>
 

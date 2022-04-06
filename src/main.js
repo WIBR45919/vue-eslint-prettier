@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./routes";
 import plugins from "./plugins/keycloak-plugin";
 
+
 const app = createApp(App);
 
 app.use(router).use(plugins).mount("#app");
@@ -14,11 +15,10 @@ router.beforeEach((to, from, next) => {
 
   if (to.meta.isAuthenticated) {
     if (!authentication || !authentication.authenticated) {
-
       if (localStorage.getItem("tenant")) {
-        authentication
-          .init({
+        authentication.init({
             onLoad: "login-required",
+            pkceMethod: "S256",
             redirectUri: basePath + to.path,
           })
           .then((auth) => {
@@ -32,7 +32,8 @@ router.beforeEach((to, from, next) => {
             }
           });
       } else {
-        router.push({ name: "entry-page",});
+        // noinspection JSIgnoredPromiseFromCall
+        router.push({ name: "entry-page"});
       }
     } else {
       next();

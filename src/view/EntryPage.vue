@@ -21,14 +21,17 @@
 
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import SvgTest from "../components/SvgTest.vue";
 
 export default {
   name: "EntryPage",
+  components: { SvgTest },
   setup: () => {
     const tenant = ref("");
     const router = useRouter();
 
     const initPages = () => {
+       localStorage.removeItem("tenant");
       localStorage.setItem("tenant", tenant.value);
       router.push("/home");
     };
@@ -73,6 +76,10 @@ button:hover {
 
 .container {
   padding: 16px;
+}
+
+.myStyle:deep(path){
+  stroke: red;
 }
 
 </style>

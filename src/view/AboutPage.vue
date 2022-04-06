@@ -24,5 +24,6 @@ export default {
 </script>
 
 <style scoped>
-
+@charset "utf-8";
+@import url("");
 </style>

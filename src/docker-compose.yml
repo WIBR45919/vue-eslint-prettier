@@ -1,0 +1,12 @@
+services:
+  keycloak:
+    image: jboss/keycloak
+    container_name: kc
+    ports:
+      - "8080:8080"
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_IMPORT: /tmp/realm.json
+    volumes:
+      - ./cm.lao.viwanda.web/realm/realm.json:/tmp/realm.json

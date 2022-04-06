@@ -15,11 +15,11 @@ export default {
 
     const goToAbout = () => {
       router.push("/about");
-    }
+    };
     return {
-      goToAbout
-    }
-  }
+      goToAbout,
+    };
+  },
 };
 </script>
 

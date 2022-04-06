@@ -21,8 +21,8 @@
         "semi": ["error", "always"],
         "quotes": ["error", "double"],
         "comma-dangle": ["error", {
-            "arrays": "always",
-            "objects": "always"
+            "arrays": "always-multiline",
+            "objects": "always-multiline"
         }]
     },
     "ignorePatterns": ["**/*.spec.js", "src/services/**"]

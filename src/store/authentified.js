@@ -1,12 +1,12 @@
-export function mustBeAuthenticated(){
+export function mustBeAuthenticated() {
+
+  const parseToken = () => {};
+  const getExpiredDate = () => {};
+  const getRole = () => {};
 
   return {
-
-    getIsAuthenticated(){
-      if (localStorage.getItem("token"))
-            return true;
-      else
-        return false;
-    },
-  }
-};
+    parseToken,
+    getExpiredDate,
+    getRole,
+  };
+}
